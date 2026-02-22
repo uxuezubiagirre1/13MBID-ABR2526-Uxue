@@ -162,3 +162,5 @@ cython_debug/
 mlruns
 
 datastorage/
+
+docs/figures/
