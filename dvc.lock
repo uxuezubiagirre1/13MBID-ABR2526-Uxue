@@ -1,0 +1,42 @@
+schema: '2.0'
+stages:
+  visualize_data:
+    cmd: python src/data_visualization.py
+    deps:
+    - path: data/raw/bank-additional-full.csv
+      hash: md5
+      md5: f6cb2c1256ffe2836b36df321f46e92c
+      size: 5834924
+    - path: src/data_visualization.py
+      hash: md5
+      md5: 09b981660990a9d2a1381fa3980761f1
+      size: 4734
+    outs:
+    - path: docs/figures/correlaciones_numericas.png
+      hash: md5
+      md5: 6b412f44f64d1c7b6a70d8b51a500e47
+      size: 166890
+    - path: docs/figures/distribucion_edad.png
+      hash: md5
+      md5: 792abcae069b56846174e3c2e1a55d45
+      size: 46439
+    - path: docs/figures/distribucion_education.png
+      hash: md5
+      md5: f7d62c4dfe200a8c1ce62ec44088c48e
+      size: 37212
+    - path: docs/figures/distribucion_target.png
+      hash: md5
+      md5: 9702af8fc859335be2e1355018a976aa
+      size: 39211
+    - path: docs/figures/reporte_dataset.html
+      hash: md5
+      md5: 4666ae8c2454eb17188db28eb792ba32
+      size: 1750159
+    - path: docs/figures/tasa_suscripcion_education.png
+      hash: md5
+      md5: 0fbde12d419d4fbd365213e1c691b953
+      size: 41818
+    - path: docs/figures/tasa_suscripcion_mes.png
+      hash: md5
+      md5: fe461bdd2d4347ce2337cc3dd117aaaf
+      size: 29332
