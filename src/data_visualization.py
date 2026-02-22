@@ -23,11 +23,11 @@ def visualizar_datos(
     plt.title("Distribución de la variable objetivo (suscripción al depósito)")
     plt.xlabel("¿Suscribió un depósito a plazo?")
     plt.ylabel("Cantidad de clientes")
-    plt.savefig(ruta_salida / "Distribución_target.png", dpi=150, bbox_inches="tight")
+    plt.savefig(ruta_salida / "distribucion_target.png", dpi=150, bbox_inches="tight")
     plt.close()
 
     print("PWD:", Path.cwd())
-    print("Guardando en:", (Path(salida) / "grafico_1.png").resolve())
+    print("Guardando en:", (Path(salida) / "distribucion_target.png").resolve())
 
     # Gráfico 2: Distribución del nivel educativo
 
@@ -38,7 +38,7 @@ def visualizar_datos(
     plt.title(f"Distribución de {col}")
     plt.xlabel("Cantidad")
     plt.ylabel(col)
-    plt.savefig(ruta_salida / "Distribución_educación.png", dpi=150, bbox_inches="tight")
+    plt.savefig(ruta_salida / "distribucion_education.png", dpi=150, bbox_inches="tight")
     plt.close()
 
     ### agregar dos gráficos más
