@@ -51,18 +51,36 @@ stages:
       size: 5834924
     - path: test/test_data_quality.py
       hash: md5
-      md5: 201f0b9e1acdb46b8c71b890219e9551
-      size: 2389
+      md5: 58f62b6de74f1694efcd3df2fe720575
+      size: 3004
     outs:
     - path: docs/test_results/results.html
       hash: md5
-      md5: fa3eedff5fba639d1f40dc669eff43f7
-      size: 33879
+      md5: 0f08bd301676b99bfb4b1044ff067569
+      size: 34508
     - path: docs/test_results/results.txt
       hash: md5
-      md5: 813907e77805e86e4e01912350380740
+      md5: 4bedb6ccb9db763aa8bbf3b3b8f7cb77
       size: 679
     - path: docs/test_results/results.xml
       hash: md5
-      md5: ddf308649b5e0b540ae87833bae31438
-      size: 410
+      md5: 1457fd2b28a8cdb7a432deca642a0c36
+      size: 500
+  test_data_gx:
+    cmd: pytest test/test_data_gx.py --html=docs/test_results/results_gx.html 
+      --self-contained-html --junitxml=docs/test_results/results_gx.xml > 
+      docs/test_results/results_gx.txt
+    deps:
+    - path: data/raw/bank-additional-full.csv
+      hash: md5
+      md5: f6cb2c1256ffe2836b36df321f46e92c
+      size: 5834924
+    - path: test/test_data_gx.py
+      hash: md5
+      md5: ad5f79ed16a53cf77d1ab78a2144b6a1
+      size: 1986
+    outs:
+    - path: docs/test_results/results_gx.html
+      hash: md5
+      md5: a7a5ff8be13eb04241c74275b541997c
+      size: 33307

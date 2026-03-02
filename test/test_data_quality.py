@@ -61,3 +61,11 @@ def test_basico(datos_banco):
     # Verificar cantidad de columnas
     assert df.shape[1] == 21, "El DataFrame debería tener 21 columnas, pero tiene {df.shape[1]}."
 
+def test_dominios_y_rangos(datos_banco):
+    """Valida dominios de variables categóricas y rangos básicos de variables numéricas."""
+    df = datos_banco
+
+    assert df["y"].isin(["yes", "no"]).all(), "La columna 'y' contiene valores no válidos."
+    assert df["age"].between(17, 100).all(), "La columna 'age' está fuera del rango esperado (18-100)."
+    assert (df["duration"] >= 0).all(), "La columna 'duration' contiene valores negativos."
+    assert df["month"].isin(["jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec"]).all(), "La columna 'month' contiene valores no válidos."
