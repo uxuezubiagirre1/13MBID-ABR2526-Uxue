@@ -12,3 +12,13 @@ stages:
       - docs/figures/tasa_suscripcion_education.png
       - docs/figures/tasa_suscripcion_mes.png
       - docs/figures/reporte_dataset.html
+
+  test_data_quality:
+    cmd: pytest test/test_data_quality.py --html=docs/test_results/results.html --self-contained-html --junitxml=docs/test_results/results.xml > docs/test_results/results.txt
+    deps:
+      - test/test_data_quality.py
+      - data/raw/bank-additional-full.csv
+    outs:
+      - docs/test_results/results.html
+      - docs/test_results/results.xml
+      - docs/test_results/results.txt

@@ -164,3 +164,5 @@ mlruns
 datastorage/
 
 docs/figures/
+
+docs/test_results/
