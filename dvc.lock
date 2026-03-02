@@ -84,3 +84,19 @@ stages:
       hash: md5
       md5: a7a5ff8be13eb04241c74275b541997c
       size: 33307
+  preprocess_data:
+    cmd: python src/data_preparation.py
+    deps:
+    - path: data/raw/bank-additional-full.csv
+      hash: md5
+      md5: f6cb2c1256ffe2836b36df321f46e92c
+      size: 5834924
+    - path: src/data_preparation.py
+      hash: md5
+      md5: c4c71895eafaaec34f2bfd456a101e3a
+      size: 1772
+    outs:
+    - path: data/processed/bank-processed.csv
+      hash: md5
+      md5: 8be1a447fe2602de78a4994a9f15e880
+      size: 4368118
