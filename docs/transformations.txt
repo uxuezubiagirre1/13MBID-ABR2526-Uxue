@@ -1,7 +1,10 @@
 Transformaciones realizadas:
 - Se reemplazaron los valores 'unknown' por NaN
-- Se eliminaron las filas con valores nulos
-- Se eliminaron las filas duplicadas
-- Se elimin� la columna 'default' debido a la alta cantidad de valores desconocidos
-- Cantidad de filas finales: 38232
-- Cantidad de columnas finales: 20
+- Se creó 'contacted_before' a partir de 'pdays'
+- Se creó 'pdays_clean' reemplazando 999 por NaN para conservar información numérica
+- Se transformó 'month' a representación cíclica (month_sin, month_cos)
+- Se eliminaron filas con valores nulos
+- Se eliminaron filas duplicadas
+- Se eliminó la columna 'default' por alta proporción de valores desconocidos
+- Cantidad de filas finales: 1366
+- Cantidad de columnas finales: 23
