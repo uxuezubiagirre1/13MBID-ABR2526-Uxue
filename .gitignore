@@ -168,3 +168,7 @@ docs/figures/
 docs/test_results/
 
 .vscode/
+
+.dvc/cache/
+
+.datastorage/
