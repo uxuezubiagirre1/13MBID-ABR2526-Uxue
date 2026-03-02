@@ -172,3 +172,5 @@ docs/test_results/
 .dvc/cache/
 
 .datastorage/
+
+mlflow.db
