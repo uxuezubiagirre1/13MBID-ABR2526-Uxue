@@ -37,3 +37,12 @@ stages:
       - src/data_preparation.py
     outs:
       - data/processed/bank-processed.csv
+  train_model:
+    cmd: python src/train_model.py
+    deps:
+      - data/processed/bank-processed.csv
+      - src/train_model.py
+    outs:
+      - models/LinearSVC_model.pkl
+      - models/preprocessor.pkl
+      - metrics/metrics.json

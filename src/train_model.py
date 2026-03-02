@@ -95,16 +95,16 @@ def balance_data(X, y, random_state=42):
 
 def train_model(
     data_path: str = 'data/processed/data.csv',
-    model_output_path: str = 'models/decision_tree_model',
+    model_output_path: str = 'models/LinearSVC',
     preprocessor_output_path: str = 'models/preprocessor.pkl',
     metrics_output_path: str = 'models/metrics.json'
 ):
     """ Método principal para entrenar el modelo de clasificación. """
     # Configuración de MLflow
     mlflow.set_tracking_uri("file:./mlruns")
-    mlflow.set_experiment("Proyecto 13MBID-ABR2526 - Producción")
+    mlflow.set_experiment("13MBID - Uxue - Proyecto - Producción")
 
-    with mlflow.start_run(run_name="DecisionTree_Production"):
+    with mlflow.start_run(run_name="LinearSVC_Production"):
         print("Cargando datos...")
         X_train, X_test, y_train, y_test = load_data(data_path)
         
@@ -128,8 +128,8 @@ def train_model(
         print(f"  Tamaño balanceado: {len(X_train_balanced)}")
         print(f"  Distribución: {y_train_balanced.value_counts().to_dict()}")
 
-        print("\nEntrenando modelo Decision Tree...")
-        model = DecisionTreeClassifier(random_state=42)
+        print("\nEntrenando modelo LinearSVC...")
+        model = LinearSVC(random_state=42)
         model.fit(X_train_balanced, y_train_balanced)
         
         print("Evaluando modelo...")
@@ -176,15 +176,20 @@ def train_model(
 
         # Registrar parámetros
         mlflow.log_params({
-            "model_type": "DecisionTreeClassifier",
-            "criterion": model.criterion,
-            "max_depth": model.max_depth,
-            "min_samples_split": model.min_samples_split,
-            "min_samples_leaf": model.min_samples_leaf,
+            "model_type": "LinearSVC",
             "balancing_method": "undersampling",
-            "train_samples": len(X_train_balanced),
-            "test_samples": len(X_test),
-            "random_state": 42
+            "train_samples": int(len(X_train_balanced)),
+            "test_samples": int(len(X_test)),
+            "random_state": 42,
+            # Parámetros propios de LinearSVC
+            "C": float(model.C),
+            "penalty": str(model.penalty),
+            "loss": str(model.loss),
+            "dual": str(model.dual),
+            "tol": float(model.tol),
+            "max_iter": int(model.max_iter),
+            "fit_intercept": bool(model.fit_intercept),
+            "class_weight": str(model.class_weight),
         })
         
         # Registrar métricas
@@ -247,7 +252,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--model-output",
         type=str,
-        default="models/decision_tree_model.pkl",
+        default="models/LinearSVC_model.pkl",
         help="Ruta donde guardar el modelo"
     )
     parser.add_argument(
