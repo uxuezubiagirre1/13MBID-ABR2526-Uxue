@@ -17,6 +17,7 @@ from sklearn.preprocessing import RobustScaler
 from sklearn.utils import resample
 # Importaciones para la evaluación - experimentación
 from sklearn.model_selection import train_test_split
+
 # from sklearn.model_selection import cross_val_score
 from sklearn.metrics import (
     f1_score, recall_score, precision_score, 
@@ -27,6 +28,8 @@ from sklearn.svm import LinearSVC
 import matplotlib.pyplot as plt
 from sklearn.metrics import ConfusionMatrixDisplay
 import argparse
+import numpy as np
+from sklearn.model_selection import StratifiedKFold
 
 
 def load_data(path):
@@ -91,6 +94,54 @@ def balance_data(X, y, random_state=42):
     y_train_resampled = balanced_data['target']
 
     return x_train_resampled, y_train_resampled
+
+def compute_cv_metrics(X_train_raw, y_train, random_state=42, cv_folds=5):
+    skf = StratifiedKFold(n_splits=cv_folds, shuffle=True, random_state=random_state)
+
+    f1s, precs, recs, accs = [], [], [], []
+
+    for tr_idx, val_idx in skf.split(X_train_raw, y_train):
+        X_tr = X_train_raw.iloc[tr_idx].copy()
+        X_val = X_train_raw.iloc[val_idx].copy()
+        y_tr = y_train.iloc[tr_idx].copy()
+        y_val = y_train.iloc[val_idx].copy()
+
+        # Preprocesador fit SOLO con el fold train
+        preprocessor, X_tr_conv = create_preprocessor(X_tr)
+
+        # Convertir ints en X_val igual que haces en test
+        X_val = X_val.copy()
+        int_cols = X_val.select_dtypes(include=['int64', 'int32', 'int']).columns
+        for col in int_cols:
+            X_val[col] = X_val[col].astype('float64')
+
+        X_tr_p = preprocessor.fit_transform(X_tr_conv)
+        X_val_p = preprocessor.transform(X_val)
+
+        # Balanceo SOLO en el fold train
+        X_tr_b, y_tr_b = balance_data(X_tr_p, y_tr, random_state=random_state)
+
+        model = LinearSVC(random_state=random_state)
+        model.fit(X_tr_b, y_tr_b)
+
+        y_hat = model.predict(X_val_p)
+
+        f1s.append(f1_score(y_val, y_hat))
+        precs.append(precision_score(y_val, y_hat))
+        recs.append(recall_score(y_val, y_hat))
+        accs.append(accuracy_score(y_val, y_hat))
+
+    return {
+        "cv_folds": cv_folds,
+        "cv_accuracy_mean": float(np.mean(accs)),
+        "cv_accuracy_std": float(np.std(accs, ddof=1)),
+        "cv_f1_mean": float(np.mean(f1s)),
+        "cv_f1_std": float(np.std(f1s, ddof=1)),
+        "cv_precision_mean": float(np.mean(precs)),
+        "cv_precision_std": float(np.std(precs, ddof=1)),
+        "cv_recall_mean": float(np.mean(recs)),
+        "cv_recall_std": float(np.std(recs, ddof=1)),
+    }
 
 
 def train_model(

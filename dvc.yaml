@@ -46,3 +46,16 @@ stages:
       - models/LinearSVC_model.pkl
       - models/preprocessor.pkl
       - metrics/metrics.json
+  test_training_regression:
+    cmd: pytest test/test_training.py --html=docs/test_results/results_training.html --self-contained-html --junitxml=docs/test_results/results_training.xml > docs/test_results/results_training.txt
+    deps:
+      - test/test_training.py
+      - src/train_model.py
+      - data/processed/bank-processed.csv
+      - models/LinearSVC_model.pkl
+      - models/preprocessor.pkl
+      - metrics/metrics.json
+    outs:
+      - docs/test_results/results_training.html
+      - docs/test_results/results_training.xml
+      - docs/test_results/results_training.txt

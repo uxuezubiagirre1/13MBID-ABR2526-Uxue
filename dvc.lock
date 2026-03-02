@@ -109,8 +109,8 @@ stages:
       size: 208870
     - path: src/train_model.py
       hash: md5
-      md5: e4609a4007deda03e72edb45d00d6600
-      size: 10071
+      md5: ba9d364b53e66655e3dd38dd46cf20e3
+      size: 12018
     outs:
     - path: metrics/metrics.json
       hash: md5
@@ -124,3 +124,46 @@ stages:
       hash: md5
       md5: 0488844da33b84c278c664f445901406
       size: 6644
+  test_training_regression:
+    cmd: pytest test/test_training.py 
+      --html=docs/test_results/results_training.html --self-contained-html 
+      --junitxml=docs/test_results/results_training.xml > 
+      docs/test_results/results_training.txt
+    deps:
+    - path: data/processed/bank-processed.csv
+      hash: md5
+      md5: 38447cfb6a7c96127d517c3ff6667123
+      size: 208870
+    - path: metrics/metrics.json
+      hash: md5
+      md5: 7c76475e48bbcad53ae2a206acfb7640
+      size: 148
+    - path: models/LinearSVC_model.pkl
+      hash: md5
+      md5: 307c7e348db3be7c34665dda35564a48
+      size: 2747
+    - path: models/preprocessor.pkl
+      hash: md5
+      md5: 0488844da33b84c278c664f445901406
+      size: 6644
+    - path: src/train_model.py
+      hash: md5
+      md5: ba9d364b53e66655e3dd38dd46cf20e3
+      size: 12018
+    - path: test/test_training.py
+      hash: md5
+      md5: 162db7f19e5f2eda3b05e2696a220734
+      size: 1421
+    outs:
+    - path: docs/test_results/results_training.html
+      hash: md5
+      md5: 0cbdae35f4a88162a1300284cfcc50e3
+      size: 35492
+    - path: docs/test_results/results_training.txt
+      hash: md5
+      md5: 14f24aed2bb5991051a2fffdd5615057
+      size: 903
+    - path: docs/test_results/results_training.xml
+      hash: md5
+      md5: 23dcd6ef89d5023ff4b0e53f7e26cd07
+      size: 344

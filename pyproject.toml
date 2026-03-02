@@ -6,7 +6,7 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "dvc>=3.59.1",
-    "fastapi>=0.118.0",
+    "fastapi[standard]>=0.118.0",
     "great-expectations>=0.18.8",
     "jupyter>=1.1.1",
     "mlflow>=2.20.3",
